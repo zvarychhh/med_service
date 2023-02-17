@@ -27,7 +27,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "doctors.MyUser"
 AUTHENTICATION_BACKENDS = [
-    'med_service.backends.MyUserBackend'
+    'doctors.backends.MyUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+
 ]
 # Application definition
 

@@ -14,7 +14,7 @@
     </form>
     <ul>
         {% for doctor in doctors %}
-            <li>{{ doctor.user.temp_name }} - {{ doctor.specialty.specialty }}</li>
+            <li>{{ doctor.user.first_name }} {{ doctor.user.last_name }} - {{ doctor.specialty.specialty }}</li>
         {% empty %}
             <li>No doctors found.</li>
         {% endfor %}
