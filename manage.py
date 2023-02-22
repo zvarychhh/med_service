@@ -55,6 +55,9 @@ def insert_defaults():
                 cursor,
                 create_query("doctors_bloodtype_group", ['bloodtype_id', 'rezus_id'], [blood_type_id, rezus_id])
             )
+
+    for gender in ('Чоловік', 'Жінка', 'Не вказувати'):
+        insert_query(cursor, create_query("myuser_gender", ['name'], [gender]))
     db.commit()
     db.close()
 

@@ -29,13 +29,13 @@
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarButtonsExample">
             <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto ">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">Головна</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Лікарі</a>
+                    <a class="nav-link" href="{% url 'doctors' %}">Лікарі</a>
                 </li>
 
                 <li class="nav-item">
@@ -43,11 +43,12 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'services' %}">Послуги</a>
+                    <a class="nav-link" href="{% url 'about' %}">Про нас</a>
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">Про нас</a>
+                    <a class="nav-link" href="{% url 'services' %}">Послуги</a>
                 </li>
 
 
@@ -62,7 +63,11 @@
                     </a>
                 {% else %}
                     <a type="button" class="btn btn-primary me-3 log_btn" href="{% url 'login' %}">
-                        Вхід / Реєстрація
+                        Вхід
+                    </a>
+
+                    <a type="button" class="btn btn-primary me-3 log_btn" href="{% url 'register' %}">
+                        Реєстрація
                     </a>
                 {% endif %}
             </div>

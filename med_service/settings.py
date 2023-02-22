@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-88i0vgyh(o^h%8ne3%q$16%5c5$cfuy)2^-0d28r9d_g3%qy^8
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = "doctors.MyUser"
+AUTH_USER_MODEL = "myuser.MyUser"
 AUTHENTICATION_BACKENDS = [
-    'doctors.backends.MyUserBackend',
+    'myuser.backends.MyUserBackend',
     'django.contrib.auth.backends.ModelBackend',
 
 ]
@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
-    'doctors.apps.DoctorsConfig',
+    'doctors',
+    'myuser',
+    'patient'
+
 ]
 
 MIDDLEWARE = [
