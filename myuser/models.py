@@ -117,7 +117,7 @@ class MyUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=64, null=False)
-    blood_type = models.ManyToManyField(BloodType, blank=True)
+    blood_type = models.ForeignKey(BloodType, blank=True, on_delete=models.CASCADE)
     date_of_birth = models.DateField(null=True)
 
     is_active = models.BooleanField(default=True, null=False)

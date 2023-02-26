@@ -1,14 +1,12 @@
 from django import forms
-from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from .models import MyUser
-from patient.models import Patient
 
 
 class MyUserCreationForm(UserCreationForm):
     class Meta:
-        model = Patient
-        fields = ("email", "password1", "password2")
+        model = MyUser
+        fields = ("email", "password1", "password2", "blood_type", "date_of_birth")
 
     def save(self, commit=True):
         user = super(MyUserCreationForm, self).save(commit=False)
