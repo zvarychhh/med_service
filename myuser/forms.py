@@ -2,16 +2,17 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import MyUser
+from patient.models import Patient
 
 
 class MyUserCreationForm(UserCreationForm):
     class Meta:
-        model = MyUser
+        model = Patient
         fields = ("email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(MyUserCreationForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
+        user.email = self.cleaned_data["email"]
         if commit:
             user.save()
         return user
