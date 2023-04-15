@@ -19,6 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+from .private_data import smtp_creds
+
 SECRET_KEY = "django-insecure-88i0vgyh(o^h%8ne3%q$16%5c5$cfuy)2^-0d28r9d_g3%qy^8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     "doctors",
     "myuser",
     "patient",
+    "widget_tweaks",
+    "phone_field",
 ]
 
 MIDDLEWARE = [
@@ -108,11 +112,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Kyiv"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
+
+# TIME_ZONE = "Europe/Kyiv"
+#
+# USE_I18N = True
+#
+# USE_L10N = True
+#
+# USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -122,10 +134,17 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = smtp_creds["EMAIL_HOST"]
+EMAIL_PORT = 587
+EMAIL_HOST_USER = smtp_creds["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = smtp_creds["EMAIL_HOST_PASSWORD"]
+EMAIL_USE_TLS = True

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+    <div class="container login reg d-flex justify-content-center align-items-center">
+
+
+        <form class="form_weight pt-5 " action="{% url "reset_password" %}" method="post">
+
+
+            <p class="text-center">Введіть адрес електронної пошти</p>
+            {% csrf_token %}
+            <div class="form-outline mb-4">
+                {% render_field form.email class+="form-control" %}
+                <label class="form-label" for="form2Example1">Електронна пошта</label>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Надіслати</button>
+
+            {% if success_msg %}
+                <div class="text-center success-msg">
+                    <i class="fa fa-check"></i>
+                    {{ success_msg }}
+                </div>
+            {% endif %}
+
+            {% if error_msg %}
+                <div class="text-center error-msg">
+                    <i class="fa fa-times-circle"></i>
+                    {{ error_msg }}
+                </div>
+            {% endif %}
+        </form>
+
+    </div>
+
+
+{% endblock %}

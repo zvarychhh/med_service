@@ -1,0 +1,55 @@
+{% if messages %}
+    {% for message in messages %}
+
+        {% if message.tags == "error" %}
+
+
+            <div class="my_toast error">
+                <div class="my_toast-content">
+                    <i class="fa-solid fa-xmark check error-check"></i>
+
+                    <div class="message">
+                        <span class="text text-1">Помилка</span>
+                        <span class="text text-2">{{ message }}</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark close"></i>
+
+                <div class="progress"></div>
+            </div>
+
+        {% elif message.tags == "warning" %}
+
+            <div class="my_toast warning">
+                <div class="my_toast-content">
+                    <i class="fa fa-warning check warning-check"></i>
+                    <div class="message">
+                        <span class="text text-1">Увага</span>
+                        <span class="text text-2">{{ message }}</span>
+                    </div>
+                </div>
+
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress"></div>
+            </div>
+
+        {% elif message.tags == "success" %}
+
+            <div class="my_toast">
+                <div class="my_toast-content">
+                    <i class="fa-sharp fa-solid fa-check check"></i>
+                    <div class="message">
+                        <span class="text text-1">Увага</span>
+                        <span class="text text-2">{{ message }}</span>
+                    </div>
+                </div>
+
+                <i class="fa-solid fa-xmark close"></i>
+                <div class="progress"></div>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+

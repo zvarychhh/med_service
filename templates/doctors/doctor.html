@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static "css/doctor/schedule.css" %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="text-center text-body my-4">Запис на прийом</h2>
+
+        <div class="row text-body center text-center mb-4">
+            <div class="col-xxl-4 wow animate__animated animate__fadeInLeft">
+                <h5><i class="fa-solid fa-user-doctor icon_color me-2 "></i>
+                    <b>Лікар:</b> {{ doctor }}
+                </h5>
+            </div>
+            <div class="col-xxl-4 wow animate__animated animate__fadeInDown"><h5><i
+                    class="fa-solid fa-phone icon_color me-2 "></i> <b>Номер
+                телефону:</b> {{ doctor.phone_number }}
+            </h5></div>
+            <div class="col-xxl-4 wow animate__animated animate__fadeInRight"><h5><i
+                    class="fa-solid fa-door-open icon_color me-2"></i> <b>Кабінет:</b>
+                №{{ doctor.door_number }}
+            </h5></div>
+        </div>
+
+
+        <div class="main-container">
+
+            {% for day, times in date.items %}
+
+
+                <div class="day-container wow animate__animated animate__fadeIn">
+                    <div class="day-header">
+                        <h2>{{ day.1 }}</h2>
+                        <p>{{ day.0 }}</p>
+                    </div>
+                    <div class="hour-container">
+                        {% for starttime, endtime, patient, modelid in times %}
+                            {% if patient %}
+                                <button class="booked-slot">{{ starttime }} - {{ endtime }}</button>
+
+
+                            {% else %}
+                                <button class="free-slot" type="button" data-mdb-toggle="modal"
+                                        data-mdb-target="#model{{ modelid }}">{{ starttime }} - {{ endtime }}</button>
+
+                                <div class="modal fade" id="model{{ modelid }}" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Запис до
+                                                    лікаря</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body ">
+                                                <div class="text-start">
+
+                                                    <p><b>Лікар:</b> {{ doctor }}</p>
+                                                    <p><b>Дата:</b> {{ day.0 }}</p>
+                                                    <p><b>Час:</b> {{ starttime }} - {{ endtime }}</p>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-mdb-dismiss="modal">Вихід
+                                                </button>
+
+                                                <form action="{% url 'doctor_visit' doctor.pk %}" method="GET">
+                                                    {% csrf_token %}
+                                                    <input type="text" hidden name="appointment_id" value={{ modelid }}>
+                                                    <button type="submit" class="btn btn-primary">Підтвердити</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+            {% empty %}
+                <h2>Sorry, no athletes in this list.</h2>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+<div class="container row g-3 w-90 center ">
+    <div class="col-sm-12 col-md-5 col-xl-6 h-form">
+        <div class="form-outline">
+            <input type="text" id="form10Example1" class="form-control bg-white" name="q"
+                   value="{{ request.GET.q }}"/>
+            <label class="form-label" for="form10Example1">Ім'я Лікаря</label>
+        </div>
+
+    </div>
+
+    <div class="col-sm-8 col-md-5 col-xl-4 h-form">
+        <select class="form-select col-sm h-form" aria-label="Default select example" name="specialty">
+            <option value="" selected>Cпеціальності</option>
+            {% for specialty in specialties %}
+                <option value="{{ specialty.id }}"
+                        {% if specialty.id == request.GET.specialty %}selected{% endif %}>{{ specialty.specialty }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-sm-4 col-md-2 col-xl-2 h-form">
+
+        <button type="submit" class="btn btn-primary btn-block log_btn"><i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+
+    </div>
+
+
+</div>
+</form>
+</div>

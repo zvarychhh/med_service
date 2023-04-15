@@ -13,10 +13,6 @@ def main():
     elif sys.argv[1] == "dropdb":
         if os.path.isfile("db.sqlite3"):
             os.remove("db.sqlite3")
-        # for migration in os.listdir(os.path.join('doctors', 'migrations')):
-        #     if migration[:4].isdigit():
-        # for migration in os.listdir(os.path.join('myuser', 'migrations')):
-        #
         for f_name in os.listdir("."):
             if os.path.exists(os.path.join(".", f_name, "migrations")):
                 for migration in os.listdir(os.path.join(f_name, "migrations")):
@@ -87,6 +83,18 @@ def insert_defaults():
 
     for gender in ("Чоловік", "Жінка", "Не вказувати"):
         insert_query(cursor, create_query("myuser_gender", ["name"], [gender]))
+
+    for specialty in (
+            "Хірург",
+            "Терапевт",
+            "Офтальмолог",
+            "Гастроентеролог",
+            "Стоматолог",
+            "Педіатр",
+    ):
+        insert_query(
+            cursor, create_query("doctors_specialty", ["specialty"], [specialty])
+        )
     db.commit()
     db.close()
 

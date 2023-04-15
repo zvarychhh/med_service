@@ -1,10 +1,76 @@
 {% extends 'layout.html' %}
-
+{% load widget_tweaks %}
 {% block content %}
-    <h2>Register</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+
+    {#    <form method="post">#}
+    {#        {% csrf_token %}#}
+    {#        {{ form.as_p }}#}
+    {#        <button type="submit">Register</button>#}
+    {#    </form>#}
+
+
+    <div class="container login d-flex justify-content-center align-items-center">
+
+        <form class="reg pt-5" method="post">
+            {% csrf_token %}
+            <p class="text-center">Реєстрація</p>
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        {% render_field form.first_name class+="form-control" %}
+                        <label class="form-label" for="form3Example1">Ім'я</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        {% render_field form.last_name class+="form-control" %}
+                        <label class="form-label" for="form3Example2">Прізвище</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4 ">
+                {% render_field form.email class+="form-control " %}
+                <label class="form-label" for="form3Example3">Електронна пошта</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                {% render_field form.password1 class+="form-control" %}
+                <label class="form-label" for="form3Example4">Пароль</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                {% render_field form.password2 class+="form-control" %}
+                <label class="form-label" for="form3Example5">Підтвердження паролю</label>
+            </div>
+
+            <!-- blood input -->
+
+            <p>Група крові</p>
+
+
+            {% render_field form.blood_type placeholder="Тип крові" class+="form-control form-outline mb-4" %}
+
+            <!-- date input -->
+
+            <p>Рік народження</p>
+
+
+            {% render_field form.date_of_birth placeholder="Рік" type="date" class+="form-control form-outline mb-4" %}
+
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4 log_btn">Зареєструватися</button>
+
+            <div class="text-center">
+                <p>Вже зареєстровані ? <a href="{% url 'login' %}">Вхід</a></p>
+            </div>
+
+        </form>
+
+    </div>
 {% endblock %}

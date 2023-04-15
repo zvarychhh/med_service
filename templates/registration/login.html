@@ -1,10 +1,70 @@
 {% extends 'layout.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+    {#    <h2>Login</h2>#}
+    {#    <form method="post">#}
+    {#        {% csrf_token %}#}
+    {#        {% render_field form.email %}#}
+    {#        {% render_field form.password %}#}
+    {#        <button type="submit">Login</button>#}
+    {#    </form>#}
+
+
+    <div class="container login d-flex justify-content-center align-items-center">
+
+        <form class="pt-5 " method="post">
+            {% csrf_token %}
+
+            {% if success_msg %}
+                <p class="text-center">{{ success_msg }}</p>
+            {% endif %}
+            <p class="text-center">Вхід</p>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                {#                <input type="email" id="form2Example01" class="form-control"/>#}
+                {% render_field form.email class+="form-control" %}
+                <label class="form-label" for="form2Example1">Електронна пошта</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                {#                <input type="password" id="form2Example2" class="form-control"/>#}
+                {% render_field form.password class+="form-control" %}
+                <label class="form-label" for="form2Example2">Пароль</label>
+            </div>
+
+            <!-- 2 column grid layout for inline styling -->
+            <div class="row mb-4">
+                <div class="col d-flex justify-content-center">
+                    <!-- Checkbox -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" checked/>
+                        <label class="form-check-label" for="form2Example34"> Запам'ятати мене </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4 log_btn">Вхід</button>
+
+
+            <!-- Register buttons -->
+            <div class="text-center">
+                <p>Ще не зареєстровані? <a href="{% url 'register' %}">Реєстрація</a></p>
+            </div>
+
+            <div class="text-center">
+                <p><a href="{% url 'reset_password' %}">Забули пароль ?</a></p>
+            </div>
+
+            {% if success_msg %}
+                <div class="text-center success-msg">
+                    <i class="fa fa-check"></i>
+                    {{ success_msg }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
 {% endblock %}

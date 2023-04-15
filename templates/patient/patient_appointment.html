@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static "css/doctor/doctors.css" %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="container mt-3">
+        <h2 class="text-center">Ваші записи:</h2>
+        <div class="wrap">
+            {% for appointment in appointments %}
+
+                <div class="box wow animate__animated animate__fadeInLeft"
+                     data-wow-duration="{% cycle '1.25s' '1s' '0.75s' '0.5s' %}">
+                    <div class="box-top">
+                        <img class="box-image mb-4 mt-3"
+                             src="/media/{{ appointment.doctor.photo }}"
+                             alt="Girl Eating Pizza">
+                        <div class="title-flex">
+                            <h3 class="box-title card-title">{{ appointment.doctor }}</h3>
+                            <div class="w-100">
+                                <p class="user-experience mt-1 doc-info"> {{ appointment.doctor.specialty }}</p>
+                                <p class="user-experience mt-1 doc-info">
+                                    Дата: <span class="text-primary">{{ appointment.starttime | date:"d.m.y" }}</span>
+                                </p>
+                                <p class="user-experience mt-1 doc-info">
+                                    Час: <span class="text-primary">{{ appointment.starttime | date:"H:i" }}</span></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% if appointment.flag %}
+                        <button type="button" class="btn btn-danger log_btn" data-mdb-toggle="modal"
+                                data-mdb-target="#modal{{ appointment.doctor.pk }}">
+                            Відхилити
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal{{ appointment.doctor.pk }}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Відхилити Візит</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body ">
+                                        <p class="user-experience mt-1 doc-info">
+                                            Лікар: <span
+                                                class="text-dark">{{ appointment.doctor }}</span>
+                                        </p>
+                                        <p class="user-experience mt-1 doc-info">
+                                            Дата: <span
+                                                class="text-dark">{{ appointment.starttime | date:"d.m.y" }}</span>
+                                        </p>
+                                        <p class="user-experience mt-1 doc-info">
+                                            Час: <span
+                                                class="text-dark">{{ appointment.starttime | date:"H:i" }}</span></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Вихід
+                                        </button>
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="text" hidden name="appointment_id" value={{ appointment.pk }}>
+                                            <button type="submit" class="btn btn-primary">Підтвердити</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="#" class="btn btn-primary log_btn disabled">Завершено</a>
+                    {% endif %}
+
+                </div>
+            {% empty %}
+                <h1 class="text-center w-100">Наразі немає ніяких записів</h1>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -34,39 +34,41 @@
                     <a class="nav-link" href="{% url 'home' %}">Головна</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="{% url 'doctors' %}">Лікарі</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Записи</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'about' %}">Про нас</a>
                 </li>
 
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'services' %}">Послуги</a>
-                </li>
-
+                {% if user.role == "PATIENT" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "patient_appointment" %}">Записи</a>
+                    </li>
+                {% endif %}
 
             </ul>
             <!-- Left links -->
 
             <div class="d-flex align-items-center justify-content-center">
                 {% if user.is_authenticated %}
-                    <p>{{ user.first_name }}</p>
+                    <p></p>
+                    <div class="btn-outline-secondary btn-rounded me-3 log_btn" href="{% url 'login' %}">
+                        {{ user.first_name }}
+                    </div>
+
                     <a type="button" class="btn btn-primary me-3 log_btn" href="{% url 'logout' %}">
                         Вихід
                     </a>
                 {% else %}
-                    <a type="button" class="btn btn-primary me-3 log_btn" href="{% url 'login' %}">
+                    <a type="button" class="btn btn-secondary me-3 log_btn"
+                       href="{% url 'login' %}">
                         Вхід
                     </a>
 
-                    <a type="button" class="btn btn-primary me-3 log_btn" href="{% url 'register' %}">
+                    <a type="button" class="btn btn-primary me-3 log_btn"
+                       href="{% url 'register' %}">
                         Реєстрація
                     </a>
                 {% endif %}

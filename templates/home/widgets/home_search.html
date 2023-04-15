@@ -1,15 +1,14 @@
 <div
-  class="input_block text-black">
-  <h2 class="d-block text-center py-5">Here u can find yout doctor:</h2>
-  <div class="input-group search-form center pb-5 mb-5">
-    <div id="search-autocomplete" class="form-outline" >
-      <input type="search" id="form1" class="form-control" />
-      <label class="form-label" for="form1">Пошук</label>
-    </div>
-    <button type="button" class="btn btn-primary">
-      <i class="fas fa-search"></i>
-    </button>
-  </div>
+        class="input_block text-black">
+    <form class="pb-5 wow animate__animated animate__slideInUp" action="{% url "doctors" %}" method="get">
+        <div class="container pb-5">
+            <h2 class="d-block text-center pt-5">Знайдіть свого лікаря:</h2>
+            {% include "widgets/search_doctor.html" %}
+        </div>
+
+
+    </form>
+
 </div>
 
 

@@ -1,4 +1,7 @@
 from django.urls import path
-from .views import test
+from .views import patient_appointment
 
-urlpatterns = [path("test/", test, name="test")]
+urlpatterns = [
+    path("appointment/", patient_appointment, name="patient_appointment")
+
+]

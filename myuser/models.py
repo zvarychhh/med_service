@@ -1,6 +1,7 @@
 import enum
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from phone_field import PhoneField
 
 
 class GroupEnum(enum.Enum):
@@ -55,7 +56,7 @@ class BloodType(models.Model):
     group = models.ForeignKey(BloodTypeGroup, on_delete=models.PROTECT)
 
     def __str__(self):
-        return f"{self.rezus} {self.group}"
+        return f"{self.group}{self.rezus}"
 
 
 class Gender(models.Model):
@@ -117,8 +118,11 @@ class MyUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=64, null=False)
-    blood_type = models.ForeignKey(BloodType, blank=True, on_delete=models.CASCADE)
+    blood_type = models.ForeignKey(
+        BloodType, null=True, blank=True, on_delete=models.CASCADE
+    )
     date_of_birth = models.DateField(null=True)
+    forget_password_token = models.CharField(max_length=128, null=True, blank=True)
 
     is_active = models.BooleanField(default=True, null=False)
     is_staff = models.BooleanField(default=False, null=False)
@@ -127,6 +131,9 @@ class MyUser(AbstractUser):
     objects = MyUserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
     def save(self, *args, **kwargs):
         if not self.pk:

@@ -19,3 +19,12 @@ class MyUserCreationForm(UserCreationForm):
 class MyLoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class EmailForm(forms.Form):
+    email = forms.EmailField()
+
+
+class PasswordForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)

@@ -1,0 +1,31 @@
+<div class="wrap">
+
+    {% for doc in doctors %}
+
+        <div class="box wow animate__animated animate__fadeInLeft"
+             data-wow-duration="{% cycle '1.25s' '1s' '0.75s' '0.5s' %}">
+            <div class="box-top">
+                <img class="box-image mb-4 mt-3"
+                     src="/media/{{ doc.photo }}"
+                     alt="Girl Eating Pizza">
+                <div class="title-flex">
+                    <h3 class="box-title card-title">{{ doc }}</h3>
+                    {#                    <h3 class="box-title card-title">{{ doc.user.last_name }}</h3>#}
+                    <div class="w-100">
+                        <p class="user-follow-info doc-info">{{ doc.specialty }}</p>
+                        <p class="user-experience mt-1 doc-info">Стаж: {{ doc.experience }}р.</p>
+                        <p class="center mt-4 doc-info"><span class="fa fa-star checked star"></span> 4.9 (83) <span
+                                class="fa-solid fa-user"></span></p>
+                    </div>
+                </div>
+
+            </div>
+            <a href="{% url "doctor_visit" doc.pk %}" class="btn btn-primary log_btn">Записатися</a>
+        </div>
+
+    {% empty %}
+        nothing
+
+    {% endfor %}
+
+</div>

@@ -1,13 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import MyUserCreationForm, MyLoginForm
+from patient.forms import PatientCreationForm, PatientLoginForm
+from uuid import uuid4
+
+from .forms import EmailForm, PasswordForm
+from .models import MyUser
+from .reset import send_password_email
 
 
-# Create your views here.
 def register_view(request):
     if request.method == "POST":
-        form = MyUserCreationForm(request.POST)
+        form = PatientCreationForm(request.POST)
         if form.is_valid():
             form.save()
             email = form.cleaned_data.get("email")
@@ -17,28 +21,86 @@ def register_view(request):
                 login(request, user)
             return redirect("home")
     else:
-        form = MyUserCreationForm()
+        form = PatientCreationForm()
     return render(request, "registration/register.html", {"form": form})
 
 
 def login_view(request):
     if request.method == "POST":
-        form = MyLoginForm(request.POST)
+        form = PatientLoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, "Ви увійшли!")
                 return redirect("home")
             else:
                 messages.error(request, "Неправильно введено пароль або логін.")
     else:
-        form = MyLoginForm()
+        form = PatientLoginForm()
     return render(request, "registration/login.html", {"form": form})
 
 
 def logout_view(request):
     logout(request)
     return redirect("home")
+
+
+# Password reset views
+
+
+def reset_password(request):
+    context = {"form": EmailForm}
+    try:
+        if request.method == "POST":
+            email = request.POST.get("email")
+            user = MyUser.objects.filter(email=email).first()
+
+            if not user:
+                messages.error(request, "Користувача з такою поштою не виявлено.")
+                return render(request, "reset_password/email_check.html", context)
+
+            uid = uuid4()
+            user.forget_password_token = uid
+            user.save()
+
+            send_password_email(user, uid)
+            messages.success(request, "Посилання для скидання паролю було відправлене на пошту.")
+            context["user_id"] = user.pk
+            return render(request, "reset_password/email_check.html", context)
+    except Exception as e:
+        messages.error(request, str(e))
+
+    return render(request, "reset_password/email_check.html", context)
+
+
+def change_password(request, token):
+    context = {"form": PasswordForm}
+    try:
+        if request.method == "POST":
+            user = MyUser.objects.filter(forget_password_token=token).first()
+            if not user:
+                context["error_msg"] = "Посилання не дійсне."
+                return render(request, "reset_password/change_password.html", context)
+            form = PasswordForm(request.POST)
+            if form.is_valid():
+                password = form.cleaned_data.get("password")
+                confirm_password = form.cleaned_data.get("confirm_password")
+                if password != confirm_password:
+                    context["error_msg"] = "Паролі не співпадають."
+                    return render(
+                        request, "reset_password/change_password.html", context
+                    )
+                user.set_password(password)
+                user.forget_password_token = ""
+                user.save()
+                context = {
+                    "success_msg": "Пароль успішно змінено",
+                    "form": PatientLoginForm(),
+                }
+                return redirect("login")
+
+    except Exception as e:
+        print(e)
+    return render(request, "reset_password/change_password.html", context)
