@@ -245,4 +245,17 @@
 }
 
 
+.page {
+    color: #3B71CA;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+}
 

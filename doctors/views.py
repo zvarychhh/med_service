@@ -2,6 +2,7 @@ from django.db.models import Q
 from .models import DoctorProfile, Specialty, Appointment
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.paginator import Paginator
 from patient.models import PatientProfile
 from .models import Appointment
 import datetime
@@ -11,6 +12,7 @@ import locale
 def doctor_list(request):
     doctors = DoctorProfile.objects.all()
     specialties = Specialty.objects.all()
+
     query = request.GET.get("q")
     if query:
         doctors = doctors.filter(
@@ -19,8 +21,12 @@ def doctor_list(request):
     specialty_filter = request.GET.get("specialty")
     if specialty_filter:
         doctors = doctors.filter(specialty__id=specialty_filter)
+
+    paginator = Paginator(doctors, 4)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     return render(
-        request, "doctors/index.html", {"doctors": doctors, "specialties": specialties}
+        request, "doctors/index.html", {"page_obj": page_obj, "specialties": specialties}
     )
 
 
