@@ -7,6 +7,9 @@ from uuid import uuid4
 from .forms import EmailForm, PasswordForm
 from .models import MyUser
 from .reset import send_password_email
+from django.utils.translation import activate
+
+activate("ua")
 
 
 def register_view(request):
@@ -64,8 +67,13 @@ def reset_password(request):
             uid = uuid4()
             user.forget_password_token = uid
             user.save()
+            title = "Лінк для зміни паролю"
+            message = f"Доброго дня, {user}" \
+                      f", для відновлення паролю " \
+                      f"перейдіть за посиланням " \
+                      f"http://127.0.0.1:8000/user/change_password/{uid} "
 
-            send_password_email(user, uid)
+            send_password_email(user, title, message)
             messages.success(request, "Посилання для скидання паролю було відправлене на пошту.")
             context["user_id"] = user.pk
             return render(request, "reset_password/email_check.html", context)

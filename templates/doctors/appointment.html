@@ -3,9 +3,42 @@
 
 {% block content %}
 
-    start
-    {% for i in appointment %}
-        <p>{{ i }}</p>
-    {% endfor %}
-    stop
+
+
+    <table class="table align-middle mt-4 bg-white w-75 center rounded">
+        <thead class="bg-light">
+        <tr>
+            <th>Пацієнт</th>
+            <th>Дата</th>
+            <th>Час</th>
+            <th>Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for appointment in page_obj %}
+            <tr>
+                <td>{{ appointment.patient }}</td>
+                <td>{{ appointment.starttime|date:"d.m.Y" }}</td>
+                <td>{{ appointment.starttime|time:"H:i" }} - {{ appointment.endtime|time:"H:i" }}</td>
+                {% if appointment.endtime >= now and appointment.starttime <= now %}
+                    <td>
+                        <span class="badge badge-primary rounded-pill d-inline"> В процесі</span>
+                    </td>
+                {% elif appointment.endtime < now %}
+                    <td>
+                        <span class="badge badge-danger rounded-pill d-inline">Завершено</span>
+                    </td>
+                {% elif appointment.starttime > now %}
+                    <td>
+                        <span class="badge badge-success rounded-pill d-inline">Заплановано</span>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="mt-4"> {% include "widgets/pagination.html" %}</div>
+
+
 {% endblock %}

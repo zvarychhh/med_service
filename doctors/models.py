@@ -64,7 +64,6 @@ class Appointment(models.Model):
     appointmentManage = models.ForeignKey("AppointmentManage", on_delete=models.CASCADE, null=True, blank=True)
     starttime = models.DateTimeField(null=True)
     endtime = models.DateTimeField(null=True)
-    flag = models.BooleanField(default=True)
     patient = models.ForeignKey("patient.PatientProfile", default=None,
                                 on_delete=models.CASCADE, null=True, blank=True)
 

@@ -10,7 +10,7 @@ import locale
 
 
 def doctor_list(request):
-    doctors = DoctorProfile.objects.all()
+    doctors = DoctorProfile.objects.all().order_by("user__last_name", "user__first_name")
     specialties = Specialty.objects.all()
 
     query = request.GET.get("q")
@@ -77,10 +77,15 @@ def doctor_visit(request, pk):
 
 
 def doctor_appointment(request):
-    if not request.user.id:
-        return redirect("home")
-    if request.user.role != "DOCTOR":
-        return redirect("home")
+    if not request.user.is_authenticated:
+        return redirect("registration")
+    if request.user.role == "PATIENT":
+        return redirect("patient_appointment")
+
     doctor = DoctorProfile.objects.get(user=request.user.pk)
-    appointment = Appointment.objects.filter(doctor=doctor)
-    return render(request, "doctors/appointment.html", {"appointment": appointment})
+    appointment = Appointment.objects.filter(doctor=doctor, patient__isnull=False).order_by("-starttime")
+    paginator = Paginator(appointment, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"page_obj": page_obj, "now": datetime.datetime.now()}
+    return render(request, "doctors/appointment.html", context)

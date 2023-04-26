@@ -6,7 +6,7 @@ from .models import Patient
 class PatientCreationForm(UserCreationForm):
     class Meta:
         model = Patient
-        fields = (
+        fields = [
             "first_name",
             "last_name",
             "email",
@@ -14,7 +14,8 @@ class PatientCreationForm(UserCreationForm):
             "password2",
             "blood_type",
             "date_of_birth",
-        )
+            "gender",
+        ]
 
     def save(self, commit=True):
         user = super(PatientCreationForm, self).save(commit=False)

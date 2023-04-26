@@ -9,7 +9,7 @@
     <div class="container mt-3">
         <h2 class="text-center">Ваші записи:</h2>
         <div class="wrap">
-            {% for appointment in appointments %}
+            {% for appointment in page_obj %}
 
                 <div class="box wow animate__animated animate__fadeInLeft"
                      data-wow-duration="{% cycle '1.25s' '1s' '0.75s' '0.5s' %}">
@@ -30,7 +30,7 @@
                         </div>
 
                     </div>
-                    {% if appointment.flag %}
+                    {% if appointment.starttime > now %}
                         <button type="button" class="btn btn-danger log_btn" data-mdb-toggle="modal"
                                 data-mdb-target="#modal{{ appointment.doctor.pk }}">
                             Відхилити
@@ -77,9 +77,13 @@
                     {% endif %}
 
                 </div>
+
+
+
             {% empty %}
                 <h1 class="text-center w-100">Наразі немає ніяких записів</h1>
             {% endfor %}
         </div>
+        {% include "widgets/pagination.html" %}
     </div>
 {% endblock %}

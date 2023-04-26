@@ -1,7 +1,6 @@
 import enum
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from phone_field import PhoneField
 
 
 class GroupEnum(enum.Enum):
@@ -119,7 +118,7 @@ class MyUser(AbstractUser):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=64, null=False)
     blood_type = models.ForeignKey(
-        BloodType, null=True, blank=True, on_delete=models.CASCADE
+        BloodType, on_delete=models.CASCADE, default=1
     )
     date_of_birth = models.DateField(null=True)
     forget_password_token = models.CharField(max_length=128, null=True, blank=True)
@@ -127,6 +126,7 @@ class MyUser(AbstractUser):
     is_active = models.BooleanField(default=True, null=False)
     is_staff = models.BooleanField(default=False, null=False)
     is_superuser = models.BooleanField(default=False, null=False)
+    gender = models.ForeignKey(Gender, default=3, on_delete=models.PROTECT)
 
     objects = MyUserManager()
     USERNAME_FIELD = "email"
@@ -139,3 +139,10 @@ class MyUser(AbstractUser):
         if not self.pk:
             self.role = self.base_role
         return super().save(*args, **kwargs)
+
+
+class Mailing(models.Model):
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.email

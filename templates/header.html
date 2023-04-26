@@ -42,7 +42,7 @@
                     <a class="nav-link" href="{% url 'about' %}">Про нас</a>
                 </li>
 
-                {% if user.role == "PATIENT" %}
+                {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "patient_appointment" %}">Записи</a>
                     </li>
@@ -68,7 +68,7 @@
                     </a>
 
                     <a type="button" class="btn btn-primary me-3 log_btn"
-                       href="{% url 'register' %}">
+                       href="{% url 'registration' %}">
                         Реєстрація
                     </a>
                 {% endif %}

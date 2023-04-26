@@ -16,35 +16,30 @@
         <form class="pt-5 " method="post">
             {% csrf_token %}
 
-            {% if success_msg %}
-                <p class="text-center">{{ success_msg }}</p>
-            {% endif %}
             <p class="text-center">Вхід</p>
             <!-- Email input -->
             <div class="form-outline mb-4">
                 {#                <input type="email" id="form2Example01" class="form-control"/>#}
-                {% render_field form.email class+="form-control" %}
+                {% render_field form.email class+="form-control bg-light" %}
                 <label class="form-label" for="form2Example1">Електронна пошта</label>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
                 {#                <input type="password" id="form2Example2" class="form-control"/>#}
-                {% render_field form.password class+="form-control" %}
+                {% render_field form.password class+="form-control bg-light" %}
                 <label class="form-label" for="form2Example2">Пароль</label>
             </div>
 
             <!-- 2 column grid layout for inline styling -->
             <div class="row mb-4">
-                <div class="col d-flex justify-content-center">
-                    <!-- Checkbox -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" checked/>
-                        <label class="form-check-label" for="form2Example34"> Запам'ятати мене </label>
-                    </div>
-                </div>
 
+                <div class="text-center">
+                    <input class="form-check-input" type="checkbox" value="" id="pass-check"/>
+                    <label class="form-check-label" for="flexCheckChecked">Показати пароль</label>
+                </div>
             </div>
+
 
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4 log_btn">Вхід</button>
@@ -52,7 +47,7 @@
 
             <!-- Register buttons -->
             <div class="text-center">
-                <p>Ще не зареєстровані? <a href="{% url 'register' %}">Реєстрація</a></p>
+                <p>Ще не зареєстровані? <a href="{% url 'registration' %}">Реєстрація</a></p>
             </div>
 
             <div class="text-center">

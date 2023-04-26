@@ -105,13 +105,13 @@
 <footer class="text-center text-lg-start bg-light text-muted pt-1">
 
     <section class="p-4 border-bottom">
-        <form class="w-50 center" action="">
+        <form class="w-50 center" action="{% url "home" %}" method="get">
             <!--Grid row-->
             <div class="row d-flex justify-content-center">
                 <!--Grid column-->
                 <div class="col-auto">
-                    <p class="pt-2 text-primary">
-                        <strong>Будьте в курсі - підпишіться зараз!</strong>
+                    <p class="pt-2 text-primary fw-bold">
+                        Будьте в курсі - підпишіться зараз!
                     </p>
                 </div>
                 <!--Grid column-->
@@ -120,7 +120,7 @@
                 <div class="col-md-5 col-12">
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <input type="email" id="form5Example2" class="form-control"/>
+                        <input type="email" id="form5Example2" name="email" class="form-control"/>
                         <label class="form-label" for="form5Example2">Електронна пошта</label>
                     </div>
                 </div>
@@ -162,17 +162,15 @@
                         <a href="{% url "doctors" %}">Лікарі</a>
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Angular</a>
+                        <a href="{% url "doctors" %}?specialty=2" class="text-reset">Терапевт</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">React</a>
+                        <a href="{% url "doctors" %}?specialty=1" class="text-reset">Хірург</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Vue</a>
+                        <a href="{% url "doctors" %}?specialty=3" class="text-reset">Педіатр</a>
                     </p>
-                    <p>
-                        <a href="#!" class="text-reset">Laravel</a>
-                    </p>
+
 
                 </div>
                 <!-- Grid column -->
@@ -181,14 +179,13 @@
                 <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                    <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                    <h6 class="text-uppercase fw-bold mb-4">Контакти</h6>
+                    <p><i class="fas fa-home me-3"></i> Івано-Франківськ, Коновальця 2/4</p>
                     <p>
                         <i class="fas fa-envelope me-3"></i>
-                        info@example.com
+                        medicine.if.info@gmail.com
                     </p>
-                    <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                    <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                    <p><i class="fas fa-phone me-3"></i> + 380 63 781 34 11</p>
                 </div>
                 <!-- Grid column -->
             </div>

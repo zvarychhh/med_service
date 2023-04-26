@@ -5,16 +5,18 @@ from .models import PatientProfile
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
+from django.core.paginator import Paginator
 from doctors.models import Appointment
 
 
 # Create your views here.
 
 def patient_appointment(request):
-    if not request.user.id:
+    if not request.user.is_authenticated:
         return redirect("login")
-    if request.user.role != "PATIENT":
-        return redirect("login")
+    if request.user.role == "DOCTOR":
+        return redirect("doctor_appointment")
+
     patient = PatientProfile.objects.get(user=request.user)
     if request.POST:
         appointment_id = request.POST.get("appointment_id")
@@ -25,9 +27,8 @@ def patient_appointment(request):
         return redirect("patient_appointment")
 
     appointments = Appointment.objects.filter(patient=patient).order_by("-starttime")
-    for i in appointments:
-        if i.starttime < datetime.now():
-            i.flag = False
-            i.save()
-    context = {"appointments": appointments}
+    paginator = Paginator(appointments, 4)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"page_obj": page_obj, "now": datetime.now()}
     return render(request, "patient/patient_appointment.html", context)

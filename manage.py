@@ -87,10 +87,11 @@ def insert_defaults():
     for specialty in (
             "Хірург",
             "Терапевт",
+            "Педіатр",
             "Офтальмолог",
             "Гастроентеролог",
             "Стоматолог",
-            "Педіатр",
+
     ):
         insert_query(
             cursor, create_query("doctors_specialty", ["specialty"], [specialty])
