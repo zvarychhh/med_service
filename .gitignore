@@ -1,3 +1,4 @@
 /media/
-/med_service/private_data.py
+migrations/
+private_data.py
 db.sqlite3
