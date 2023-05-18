@@ -38,8 +38,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect("home")
-            else:
-                messages.error(request, "Неправильно введено пароль або логін.")
+        messages.error(request, "Неправильно введено пароль або пошту.")
     else:
         form = PatientLoginForm()
     return render(request, "registration/login.html", {"form": form})
