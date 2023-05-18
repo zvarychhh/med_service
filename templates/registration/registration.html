@@ -1,0 +1,117 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+
+
+    <div class="container login d-flex justify-content-center align-items-center">
+
+        <form class="reg pt-5 {% if form.errors %}
+        was-validated
+        {% endif %} " method="post">
+            {% csrf_token %}
+            <p class="text-center">Реєстрація</p>
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        {% render_field form.first_name class+="form-control bg-white" %}
+                        <label class="form-label" for="form3Example1">Ім'я</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        {% render_field form.last_name class+="form-control bg-white" %}
+                        <label class="form-label" for="form3Example2">Прізвище</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email input -->
+            {% if form.errors.email %}
+
+                <div class="form-outline mb-4 ">
+
+                    {% render_field form.email class+="form-control bg-white input-blank" %}
+                    <label class="form-label" for="form3Example3">Електронна пошта</label>
+                    <div class="invalid-tooltip">
+                        {% for error in form.errors.email %}
+                            {{ error }} <br>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            {% else %}
+                <div class="form-outline mb-4 ">
+
+                    {% render_field form.email class+="form-control bg-white" %}
+                    <label class="form-label" for="form3Example3">Електронна пошта</label>
+
+                </div>
+
+            {% endif %}
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                {% render_field form.password1 class+="form-control bg-white" %}
+                <label class="form-label" for="form3Example4">Пароль</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                {% render_field form.password2 class+="form-control bg-white" %}
+                <label class="form-label" for="form3Example5">Підтвердження паролю</label>
+                <div class="invalid-tooltip">
+                    {% if form.errors.password2 %}
+                        {% for error in form.errors.password2 %}
+                            {{ error }} <br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <!-- gender input -->
+
+            <p>Стать</p>
+
+
+            {% render_field form.gender placeholder="Стать" class+="form-control form-outline mb-4" %}
+
+
+            <!-- blood input -->
+
+            <p>Група крові</p>
+
+
+            {% render_field form.blood_type placeholder="Тип крові" class+="form-control form-outline mb-4" %}
+
+            <!-- date input -->
+
+            <p>Рік народження</p>
+
+            {% if form.errors.date_of_birth %}
+                {% render_field form.date_of_birth placeholder="Рік" type="date" class+="form-control form-outline mb-4 input-blank" %}
+            {% else %}
+                {% render_field form.date_of_birth placeholder="Рік" type="date" class+="form-control form-outline mb-4" %}
+            {% endif %}
+
+
+
+            <div class="text-center mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="pass-check"/>
+                <label class="form-check-label" for="flexCheckChecked">Показати пароль</label>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4 log_btn">Зареєструватися</button>
+
+            <div class="text-center">
+                <p>Вже зареєстровані ? <a href="{% url 'login' %}">Вхід</a></p>
+            </div>
+
+        </form>
+
+    </div>
+{% endblock %}
