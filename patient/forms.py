@@ -23,8 +23,3 @@ class PatientCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
-
-class PatientLoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)

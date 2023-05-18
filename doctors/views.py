@@ -10,7 +10,7 @@ import locale
 
 
 def doctor_list(request):
-    doctors = DoctorProfile.objects.all().order_by("user__last_name", "user__first_name")
+    doctors = DoctorProfile.objects.filter(confirmation=True).order_by("user__last_name", "user__first_name")
     specialties = Specialty.objects.all()
 
     query = request.GET.get("q")
@@ -31,7 +31,7 @@ def doctor_list(request):
 
 
 def get_days(pk):
-    doc = DoctorProfile.objects.get(pk=pk)
+    doc = DoctorProfile.objects.get(pk=pk, confirmation=True)
     appointments = Appointment.objects.filter(doctor=doc).order_by("starttime")
     days = {}
     locale.setlocale(locale.LC_TIME, "uk_UA.utf8")
@@ -47,8 +47,11 @@ def get_days(pk):
 
 
 def doctor_visit(request, pk):
-    doc = DoctorProfile.objects.get(pk=pk)
-
+    try:
+        doc = DoctorProfile.objects.get(pk=pk, confirmation=True)
+    except:
+        messages.warning(request, 'Даного лікаря не існує.')
+        return redirect("doctors")
     if request.method == "GET" and request.GET.get("appointment_id"):
         patient = PatientProfile.objects.filter(user_id=request.user.pk)
         if not patient:

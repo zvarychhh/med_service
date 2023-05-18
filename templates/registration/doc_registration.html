@@ -79,14 +79,6 @@
 
             {% render_field form.gender placeholder="Стать" class+="form-control form-outline mb-4" %}
 
-
-            <!-- blood input -->
-
-            <p>Група крові</p>
-
-
-            {% render_field form.blood_type placeholder="Тип крові" class+="form-control form-outline mb-4" %}
-
             <!-- date input -->
 
             <p>Рік народження</p>
@@ -108,6 +100,7 @@
             <button type="submit" class="btn btn-primary btn-block mb-4 log_btn">Зареєструватися</button>
 
             <div class="text-center">
+                <p>Зареєструватися як <a href="{% url 'registration' %}">Пацієнт</a></p>
                 <p>Вже зареєстровані ? <a href="{% url 'login' %}">Вхід</a></p>
             </div>
 

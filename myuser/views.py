@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from patient.forms import PatientCreationForm, PatientLoginForm
+from patient.forms import PatientCreationForm
+from doctors.forms import DoctorCreationForm
 from uuid import uuid4
 
-from .forms import EmailForm, PasswordForm
+from .forms import EmailForm, PasswordForm, LoginForm
 from .models import MyUser
 from .reset import send_password_email
 from django.utils.translation import activate
@@ -12,7 +13,7 @@ from django.utils.translation import activate
 activate("ua")
 
 
-def register_view(request):
+def registration_view(request):
     if request.method == "POST":
         form = PatientCreationForm(request.POST)
         if form.is_valid():
@@ -25,12 +26,28 @@ def register_view(request):
             return redirect("home")
     else:
         form = PatientCreationForm()
-    return render(request, "registration/register.html", {"form": form})
+    return render(request, "registration/registration.html", {"form": form})
+
+
+def doc_registration_view(request):
+    if request.method == "POST":
+        form = DoctorCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password1")
+            user = authenticate(request, email=email, password=password)
+            if user:
+                login(request, user)
+            return redirect("home")
+    else:
+        form = DoctorCreationForm()
+    return render(request, "registration/doc_registration.html", {"form": form})
 
 
 def login_view(request):
     if request.method == "POST":
-        form = PatientLoginForm(request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
@@ -40,7 +57,7 @@ def login_view(request):
                 return redirect("home")
         messages.error(request, "Неправильно введено пароль або пошту.")
     else:
-        form = PatientLoginForm()
+        form = LoginForm()
     return render(request, "registration/login.html", {"form": form})
 
 

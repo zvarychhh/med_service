@@ -50,10 +50,8 @@ class DoctorProfile(models.Model):
     door_number = models.IntegerField(null=True, blank=True, unique=True)
     phone_number = PhoneField(null=True, blank=True, default="")
     experience = models.IntegerField(null=True, blank=True)
-    descriptions = models.TextField(blank=True)
-    star_time = models.DateTimeField(null=True, blank=True)
-    end_time = models.DateTimeField(null=True, blank=True)
     photo = models.ImageField(upload_to=f"doctor_photos/", blank=True)
+    confirmation = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
