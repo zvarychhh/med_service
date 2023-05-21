@@ -1,22 +1,19 @@
 {% extends 'layout.html' %}
 {% load widget_tweaks %}
-
+{% load static %}
 {% block content %}
-    {#    <h2>Login</h2>#}
-    {#    <form method="post">#}
-    {#        {% csrf_token %}#}
-    {#        {% render_field form.email %}#}
-    {#        {% render_field form.password %}#}
-    {#        <button type="submit">Login</button>#}
-    {#    </form>#}
 
 
     <div class="container login d-flex justify-content-center align-items-center">
 
-        <form class="pt-5 " method="post">
+        <div>
+            <img class="d-none d-lg-block" src="{% static "img/svg/sv5.svg" %}" height="500" alt="">
+        </div>
+
+        <form class="pt-5 col-8 col-xl-4" method="post">
             {% csrf_token %}
 
-            <p class="text-center">Вхід</p>
+            <h2 class="text-center fw-bold mb-4">Вхід</h2>
             <!-- Email input -->
             <div class="form-outline mb-4">
                 {#                <input type="email" id="form2Example01" class="form-control"/>#}
@@ -61,5 +58,9 @@
                 </div>
             {% endif %}
         </form>
+
+        <div>
+            <img class="d-none d-lg-block" src="{% static "img/svg/sv7.svg" %}" height="500" alt="">
+        </div>
     </div>
 {% endblock %}

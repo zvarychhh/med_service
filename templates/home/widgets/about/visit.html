@@ -1,0 +1,72 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<div class="container mt-3 mb-3">
+    <div class="pre-view text-dark">
+        <div class="row">
+            <div class="col-md order-md-first text-center wow animate__animated animate__fadeInLeft">
+                <img src="{% static 'img/svg/sv2.svg' %}"
+                     class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
+                     height="500" alt="">
+            </div>
+            <div class="col-md d-flex justify-content-center align-items-center wow animate__animated animate__fadeInRight">
+                <div>
+                    <h2 id="visit-section">Якісний догляд зараз</h2>
+                    <p class="lead">Не шукайте далі, ми тут, щоб допомогти! Запишіться сьогодні на свій
+                        перший безкоштовний візит і відчуйте першокласні послуги з командою наших професійних
+                        лікарів.</p>
+                    <button type="button" class="btn btn-primary btn-rounded fw-bold btn-lg mt-2 mb-2"
+                            data-mdb-toggle="modal" data-mdb-target="#visitModal">
+                        Записатися
+                    </button>
+
+                    <div class="modal fade" id="visitModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered w-75 center">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Безкоштовний перший візит</h5>
+                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md d-none d-sm-block"><img
+                                                src="{% static "img/svg/sv4.svg" %}"
+                                                alt="">
+                                        </div>
+                                        <div class="col-md order-mb-first">
+                                            <div class="form d-flex justify-content-center align-items-center h-100">
+                                                <form method="get">
+                                                    {% csrf_token %}
+                                                    <div class="form-outline mb-4">
+                                                        <input type="text" id="formName" name="name"
+                                                               class="form-control"/>
+                                                        <label class="form-label" for="formName">Ім'я</label>
+                                                    </div>
+
+                                                    <div class="form-outline mb-4">
+                                                        <input type="tel" id="formPhone" name="phone"
+                                                               class="form-control"/>
+                                                        <label class="form-label" for="formPhone">Номер телефону</label>
+                                                    </div>
+
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary w-100">Записатися
+                                                    </button>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

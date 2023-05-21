@@ -1,5 +1,10 @@
 {% extends 'layout.html' %}
+{% load static %}
+{% block content %}
 
-{% block content %} 
-    <h1>about</h1>
+    {% include "home/widgets/about/preview.html" %}
+    {% include "home/widgets/about/short_text.html" %}
+    {% include "home/widgets/about/sections.html" %}
+    {% include "home/widgets/about/slider.html" %}
+    {% include "home/widgets/about/visit.html" %}
 {% endblock %}

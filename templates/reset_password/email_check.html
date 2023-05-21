@@ -12,7 +12,7 @@
 
             <p class="text-center">Введіть адрес електронної пошти</p>
             {% csrf_token %}
-            <div class="form-outline mb-4">
+            <div class="form-outline bg-white mb-4">
                 {% render_field form.email class+="form-control" %}
                 <label class="form-label" for="form2Example1">Електронна пошта</label>
             </div>

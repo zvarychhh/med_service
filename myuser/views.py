@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -120,11 +122,32 @@ def change_password(request, token):
                 user.forget_password_token = ""
                 user.save()
                 context = {
-                    "success_msg": "Пароль успішно змінено",
-                    "form": PatientLoginForm(),
+                    "form": PatientCreationForm(),
                 }
+                messages.success(request, "Пароль успішно змінено")
                 return redirect("login")
 
     except Exception as e:
         print(e)
     return render(request, "reset_password/change_password.html", context)
+
+
+def profile(request):
+    if request.GET:
+        first_name = request.GET.get("first_name")
+        last_name = request.GET.get("last_name")
+        gender = request.GET.get("gender")
+        blood_type = request.GET.get("blood_type")
+        date_of_birth = request.GET.get("date_of_birth")
+        user = MyUser.objects.get(pk=request.user.pk)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.gender_id = gender
+        user.blood_type_id = blood_type
+        user.date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d")
+
+        print(user.date_of_birth)
+        user.save()
+        messages.success(request, "Дані оновлено")
+        return redirect("profile")
+    return render(request, "user/profile.html")

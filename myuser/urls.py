@@ -6,6 +6,7 @@ from .views import (
     reset_password,
     change_password,
     doc_registration_view,
+    profile,
 )
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("reset_password/", reset_password, name="reset_password"),
     path("change_password/<token>/", change_password, name="change_password"),
+    path("profile/", profile, name="profile")
 ]

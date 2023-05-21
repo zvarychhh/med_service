@@ -29,7 +29,7 @@
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarButtonsExample">
             <!-- Left links -->
-            <ul class="navbar-nav me-auto ">
+            <ul class="navbar-nav me-auto text-center">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">Головна</a>
                 </li>
@@ -54,9 +54,10 @@
             <div class="d-flex align-items-center justify-content-center">
                 {% if user.is_authenticated %}
                     <p></p>
-                    <div class="btn-outline-secondary btn-rounded me-3 log_btn" href="{% url 'login' %}">
+                    <a href="{% url "profile" %}" type="button" class="btn-outline-secondary btn-rounded me-3 log_btn"
+                       href="{% url 'login' %}">
                         {{ user.first_name }}
-                    </div>
+                    </a>
 
                     <a type="button" class="btn btn-primary me-3 log_btn" href="{% url 'logout' %}">
                         Вихід

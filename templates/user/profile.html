@@ -1,0 +1,127 @@
+{% extends 'layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+
+
+    <div class="container mt-2 mb-2 login d-flex justify-content-center align-items-center">
+        <div>
+            <img class="d-none d-xl-block" src="{% static "img/svg/sv4.svg" %}" height="500" alt="">
+        </div>
+
+        <form class="reg" method="get">
+            {% csrf_token %}
+            <h2 class="text-center mb-3">Дані Користувача
+            </h2>
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" name="first_name" maxlength="64" class="form-control bg-white" required=""
+                               id="id_first_name" value="{{ user.first_name }}">
+                        <label class="form-label" for="id_first_name">Ім'я</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" name="last_name" maxlength="64" class="form-control bg-white" required=""
+                               id="id_last_name" value="{{ user.last_name }}">
+                        <label class="form-label" for="id_last_name">Прізвище</label>
+                    </div>
+                </div>
+            </div>
+            {##}
+            {##}
+            {#            <!-- gender input -->#}
+            {##}
+            <p>Стать</p>
+
+
+            <select name="gender" class="form-select  mb-4" placeholder="Стать" id="id_gender">
+                <option value="1" {% if user.gender_id == 1 %}
+                        selected
+                {% endif %} >Чоловік
+                </option>
+
+                <option value="2" {% if user.gender_id == 2 %}
+                        selected
+                {% endif %}>Жінка
+                </option>
+
+                <option value="3" {% if user.gender_id == 3 %}
+                        selected
+                {% endif %}>Не вказувати
+                </option>
+
+            </select>
+
+
+            <!-- blood input -->
+
+            <p>Група крові</p>
+
+
+            <select name="blood_type" class="form-select mb-4" placeholder="Тип крові" id="id_blood_type">
+                <option value="1" {% if user.blood_type_id == 1 %}
+                        selected
+                {% endif %} >1+
+                </option>
+
+                <option value="2" {% if user.blood_type_id == 2 %}
+                        selected
+                {% endif %}>1-
+                </option>
+
+                <option value="3"{% if user.blood_type_id == 3 %}
+                        selected
+                {% endif %}>2+
+                </option>
+
+                <option value="4" {% if user.blood_type_id == 4 %}
+                        selected
+                {% endif %}>2-
+                </option>
+
+                <option value="5" {% if user.blood_type_id == 5 %}
+                        selected
+                {% endif %}>3+
+                </option>
+
+                <option value="6" {% if user.blood_type_id == 6 %}
+                        selected
+                {% endif %}>3-
+                </option>
+
+                <option value="7" {% if user.blood_type_id == 7 %}
+                        selected
+                {% endif %}>4+
+                </option>
+
+                <option value="8" {% if user.blood_type_id == 8 %}
+                        selected
+                {% endif %}>4-
+                </option>
+
+            </select>
+
+            <!-- date input -->
+
+            <p>Рік народження</p>
+
+            <input type="date" name="date_of_birth" class="form-control mb-4" placeholder="Рік" required=""
+                   id="id_date_of_birth" {% if user.date_of_birth %}
+                   value="{{ user.date_of_birth|date:"Y-m-d" }}"
+            {% endif %} >
+
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4 log_btn">Зберегти</button>
+
+        </form>
+
+        <div>
+            <img class="d-none d-xl-block" src="{% static "img/svg/sv6.svg" %}" height="500" alt="">
+        </div>
+
+    </div>
+{% endblock %}

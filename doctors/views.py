@@ -22,7 +22,7 @@ def doctor_list(request):
     if specialty_filter:
         doctors = doctors.filter(specialty__id=specialty_filter)
 
-    paginator = Paginator(doctors, 4)
+    paginator = Paginator(doctors, 8)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(

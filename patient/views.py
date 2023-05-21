@@ -16,6 +16,9 @@ def patient_appointment(request):
         return redirect("login")
     if request.user.role == "DOCTOR":
         return redirect("doctor_appointment")
+    if request.user.role == "ADMIN":
+        messages.warning(request, "Ця секція для лікарів та пацієнтів.")
+        return redirect("home")
 
     patient = PatientProfile.objects.get(user=request.user)
     if request.POST:
