@@ -10,7 +10,7 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container h-100 d-flex align-items-center justify-content-center flex-column">
         <h2 class="text-center text-body my-4">Запис на прийом</h2>
 
         <div class="row text-body center text-center mb-4">
@@ -91,7 +91,7 @@
                     </div>
                 </div>
             {% empty %}
-                <h2>Sorry, no athletes in this list.</h2>
+                <h2 class="h-100 d-flex align-items-center justify-content-center">Наразі вільних записів немає</h2>
             {% endfor %}
         </div>
     </div>

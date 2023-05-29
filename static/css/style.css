@@ -1,5 +1,6 @@
 body {
     background: hsl(204, 37%, 92%);
+    font-family: 'Open Sans', sans-serif;
 }
 
 .content {
@@ -240,13 +241,7 @@ body {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    display: none;
-}
-
-@media (max-width: 576px) {
-    #btn-call {
-        display: block;
-    }
+    display: block;
 }
 
 
@@ -281,3 +276,13 @@ body {
 }
 
 
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: none;
+    -webkit-amation-iteration-count: none;
+}

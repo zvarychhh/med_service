@@ -3,10 +3,11 @@ from .models import DoctorProfile, Specialty, Appointment
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.utils.translation import gettext as _
 from patient.models import PatientProfile
 from .models import Appointment
 import datetime
-import locale
+
 
 
 def doctor_list(request):
@@ -34,12 +35,11 @@ def get_days(pk):
     doc = DoctorProfile.objects.get(pk=pk, confirmation=True)
     appointments = Appointment.objects.filter(doctor=doc).order_by("starttime")
     days = {}
-    locale.setlocale(locale.LC_TIME, "uk_UA.utf8")
 
     for appointment in appointments:
         if appointment.starttime > datetime.datetime.now().replace():
             day = datetime.date.strftime(appointment.starttime, "%d.%m.%y")
-            verb_day = datetime.date.strftime(appointment.starttime, "%A").capitalize()
+            verb_day = _(datetime.date.strftime(appointment.starttime, "%A").capitalize())
             days.setdefault((day, verb_day), []).append(
                 [appointment.starttime.time().strftime("%H:%M"), appointment.endtime.time().strftime("%H:%M"),
                  appointment.patient, f"{appointment.pk}"])

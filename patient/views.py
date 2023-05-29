@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.core.paginator import Paginator
-from doctors.models import Appointment
+from doctor.models import Appointment
 
 
 # Create your views here.

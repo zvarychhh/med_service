@@ -31,7 +31,6 @@ def create_patient_profile(sender, instance, created, **kwargs):
 
 class PatientProfile(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.CASCADE)
-    patient_id = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.user}"

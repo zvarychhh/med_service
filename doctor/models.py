@@ -26,7 +26,7 @@ class DoctorManager(MyUserManager):
 
 class Doctor(MyUser):
     base_role = MyUser.Role.DOCTOR
-    patient = DoctorManager()
+    doctor = DoctorManager()
 
     class Meta:
         proxy = True

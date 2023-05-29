@@ -94,7 +94,7 @@ def insert_defaults():
 
     ):
         insert_query(
-            cursor, create_query("doctors_specialty", ["specialty"], [specialty])
+            cursor, create_query("doctor_specialty", ["specialty"], [specialty])
         )
     db.commit()
     db.close()

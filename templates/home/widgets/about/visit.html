@@ -41,7 +41,7 @@
                                                     {% csrf_token %}
                                                     <div class="form-outline mb-4">
                                                         <input type="text" id="formName" name="name"
-                                                               class="form-control"/>
+                                                               class="form-control" {% if user.first_name %} value="{{user.first_name}}" {% endif %}/>
                                                         <label class="form-label" for="formName">Ім'я</label>
                                                     </div>
 

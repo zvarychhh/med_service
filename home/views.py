@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from doctors.models import DoctorProfile, Specialty
-from myuser.models import Mailing
+from doctor.models import DoctorProfile, Specialty
+
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib import messages
@@ -9,6 +9,7 @@ from django.db import IntegrityError
 from django.core.mail import send_mail
 from django.conf import settings
 import phonenumbers
+from .models import Mailing
 
 
 def index(request):

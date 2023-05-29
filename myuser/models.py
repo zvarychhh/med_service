@@ -116,7 +116,7 @@ class MyUser(AbstractUser):
     role = models.CharField(max_length=50, choices=Role.choices)
     username = None
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=64, null=False)
+    password = models.CharField(max_length=128, null=False)
     blood_type = models.ForeignKey(
         BloodType, on_delete=models.CASCADE, default=1
     )
@@ -141,8 +141,4 @@ class MyUser(AbstractUser):
         return super().save(*args, **kwargs)
 
 
-class Mailing(models.Model):
-    email = models.EmailField(unique=True)
 
-    def __str__(self):
-        return self.email

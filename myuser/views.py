@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from patient.forms import PatientCreationForm
-from doctors.forms import DoctorCreationForm
+from doctor.forms import DoctorCreationForm
 from uuid import uuid4
 
 from .forms import EmailForm, PasswordForm, LoginForm
@@ -145,8 +145,6 @@ def profile(request):
         user.gender_id = gender
         user.blood_type_id = blood_type
         user.date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d")
-
-        print(user.date_of_birth)
         user.save()
         messages.success(request, "Дані оновлено")
         return redirect("profile")

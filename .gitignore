@@ -2,3 +2,4 @@
 migrations/
 private_data.py
 db.sqlite3
+__pycache__/
