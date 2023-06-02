@@ -7,7 +7,7 @@
 Для запуску цього проєкту на вашому локальному комп'ютері, слід виконати наступні кроки:
 
 1. Склонуйте цей репозиторій за допомогою команди git clone:
-    ```git clone https://github.com/your-username/medical-clinic.git```
+    ```git clone https://github.com/zvarychhh/med_service.git```
 
 2. Перейдіть до каталогу проєкту:
     ```cd med_service```
